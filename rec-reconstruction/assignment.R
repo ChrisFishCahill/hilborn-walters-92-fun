@@ -1,3 +1,5 @@
+library(tidyverse)
+
 data <- read.csv("rec-reconstruction/data.csv")
 str(data)
 
@@ -26,4 +28,22 @@ q <- 0.01145 #estimated from assessment models
 #Back calculate Nt for all years
 data$N <- data$mean_cpue / q
 
+#Let's plot some stuff and see what's going on 
+data %>%
+  ggplot(aes(x=effort, y=catch)) + 
+  geom_point() + 
+  ylab("Fishery Catch (millions of critters)") + 
+  xlab("Fishery Effort (millions of hooks)") +
+  ggsidekick::theme_sleek()
+
+data %>%
+  ggplot(aes(x=year, y=N)) + 
+  geom_point(shape = 21, colour = "black", fill = "white", size = 3) + 
+  geom_line() + 
+  geom_point(aes(x=year, y=catch)) + 
+  ylab("Abundance vs. Catch") + 
+  xlab("Year") + 
+  ggsidekick::theme_sleek()
+
+#TODO: Figure out recursive R[t] calculation
 
