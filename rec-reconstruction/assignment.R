@@ -86,6 +86,7 @@ p4 <- data %>%
   geom_point() +
   ylab("Recruits") +
   xlab("Stock Size") +
+  expand_limits(x = 0, y = 0) + 
   ggsidekick::theme_sleek()
 p4
 
