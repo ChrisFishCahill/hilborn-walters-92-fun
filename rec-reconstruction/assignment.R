@@ -68,7 +68,7 @@ for (t in (n_years - 1):1) {
 # Rpred vs. time
 p3 <- data %>%
   ggplot(aes(y = Rpred, x = year)) +
-  geom_point(shape = 21, colour = "black", fill = "black", size = 3) +
+  geom_point(shape = 21, colour = "black", fill = "black") +
   geom_line() +
   ylab("Recruits") +
   xlab("Year") +
@@ -95,5 +95,5 @@ my_plot <- cowplot::plot_grid(p1, p2, p3, p4,
 
 ggsave(
   filename = "rec-reconstruction/results.pdf",
-  width = 8, height = 6.5, units = "in"
+  width = 8, height = 6, units = "in"
 )
