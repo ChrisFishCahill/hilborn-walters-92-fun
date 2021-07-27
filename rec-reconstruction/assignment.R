@@ -49,7 +49,8 @@ ggsave("rec-reconstruction/N_vs_catch.pdf",
 # See also Hampton 1992, M ranges from 0.3 to ~ 2.0?! 
 
 #Set up leading parameters
-S <- exp(-0.6)
+M <- 0.6
+S <- exp(-M)
 n_years <- length(unique(data$year))
 
 #Set up a vector to put recruitment predictions into
