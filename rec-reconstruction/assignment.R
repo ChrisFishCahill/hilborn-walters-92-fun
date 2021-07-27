@@ -9,7 +9,7 @@ str(data)
 #CPUE from Japan longlines
 #Catch (millions), Effort (million hooks)
 #----------------------------------------------------
-q <- 0.01145 #estimated from assessment models
+q <- 0.01145 #catchability coefficient, estimated from assessment models
 
 #Back calculate Nt for all years
 data$N <- data$mean_cpue / q
