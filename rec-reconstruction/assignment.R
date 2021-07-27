@@ -75,7 +75,7 @@ p3 <- data %>%
   ggsidekick::theme_sleek()
 p3
 
-# TODO: Plot Rt vs. N[t-2], think about things
+#Plot Rt vs. N[t-2], save results plot
 data$stock <- NA
 # set stock as N[t-2]:
 data$stock[3:n_years] <- data$N[1:(n_years - 2)]
