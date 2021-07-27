@@ -65,32 +65,32 @@ for (t in (n_years - 1):1) {
   data$Rpred[t] <- data$N[t + 1] - S * (data$N[t] - data$catch[t])
 }
 
-#Rpred vs. time
+# Rpred vs. time
 p3 <- data %>%
   ggplot(aes(y = Rpred, x = year)) +
   geom_point(shape = 21, colour = "black", fill = "black", size = 3) +
   geom_line() +
-  ylab("Rpred") +
+  ylab("Recruits") +
   xlab("Year") +
   ggsidekick::theme_sleek()
 p3
 
 # TODO: Plot Rt vs. N[t-2], think about things
 data$stock <- NA
-#set stock as N[t-2]: 
-data$stock[3:n_years] <- data$N[1:(n_years-2)]
+# set stock as N[t-2]:
+data$stock[3:n_years] <- data$N[1:(n_years - 2)]
 
-#plot stock recruit relationship
-p4 <- data %>% 
-  ggplot(aes(y=Rpred, x=stock)) + 
-  geom_point() + 
-  ylab("Recruitment") + 
-  xlab("Stock Size") + 
+# plot stock recruit relationship
+p4 <- data %>%
+  ggplot(aes(y = Rpred, x = stock)) +
+  geom_point() +
+  ylab("Recruits") +
+  xlab("Stock Size") +
   ggsidekick::theme_sleek()
 p4
 
 my_plot <- cowplot::plot_grid(p1, p2, p3, p4,
-                              nrow = 2
+  nrow = 2
 )
 
 ggsave(
