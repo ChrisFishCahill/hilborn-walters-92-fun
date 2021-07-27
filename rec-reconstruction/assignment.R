@@ -36,6 +36,9 @@ data %>%
   xlab("Fishery Effort (millions of hooks)") +
   ggsidekick::theme_sleek()
 
+ggsave("rec-reconstruction/catch_vs_effort.pdf", 
+       width=5, height=3)
+
 data %>%
   ggplot(aes(x=year, y=N)) + 
   geom_point(shape = 21, colour = "black", fill = "white", size = 3) + 
@@ -44,6 +47,9 @@ data %>%
   ylab("Abundance vs. Catch") + 
   xlab("Year") + 
   ggsidekick::theme_sleek()
+
+ggsave("rec-reconstruction/N_vs_catch.pdf", 
+       width=5, height=3)
 
 #TODO: Figure out recursive R[t] calculation
 
