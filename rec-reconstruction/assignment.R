@@ -20,11 +20,6 @@ str(data)
 S <- exp(-0.6)
 q <- 0.01145 #estimated from assessment models
 
-#General model: 
-#N[t+1] = S(N[t]-C[t]) + R[t]
-#Solve for R[t]: 
-#R[t] = N[t+1] - S(N[t] - C[t])
-
 #Back calculate Nt for all years
 data$N <- data$mean_cpue / q
 
@@ -52,4 +47,9 @@ ggsave("rec-reconstruction/N_vs_catch.pdf",
        width=5, height=3)
 
 #TODO: Figure out recursive R[t] calculation
+
+#General model: 
+#N[t+1] = S(N[t]-C[t]) + R[t]
+#Solve for R[t]: 
+#R[t] = N[t+1] - S(N[t] - C[t])
 
