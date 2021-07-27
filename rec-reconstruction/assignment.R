@@ -21,23 +21,25 @@ p1 <- data %>%
   ylab("Fishery Catch (millions of critters)") +
   xlab("Fishery Effort (millions of hooks)") +
   ggsidekick::theme_sleek()
+p1
 
-ggsave("rec-reconstruction/catch_vs_effort.pdf",
-  width = 5, height = 3
-)
+# ggsave("rec-reconstruction/catch_vs_effort.pdf",
+#   width = 5, height = 3
+# )
 
 p2 <- data %>%
   ggplot(aes(x = year, y = N)) +
   geom_point(shape = 21, colour = "black", fill = "white", size = 3) +
   geom_line() +
   geom_point(aes(x = year, y = catch)) +
-  ylab("Abundance vs. Catch") +
+  ylab("Abundance (open) or Catch (filled)") +
   xlab("Year") +
   ggsidekick::theme_sleek()
+p2
 
-ggsave("rec-reconstruction/N_vs_catch.pdf",
-  width = 5, height = 3
-)
+# ggsave("rec-reconstruction/N_vs_catch.pdf",
+#   width = 5, height = 3
+# )
 
 # General model:
 # N[t+1] = S(N[t]-C[t]) + R[t]
@@ -63,7 +65,7 @@ for (t in (n_years - 1):1) {
   data$Rpred[t] <- data$N[t + 1] - S * (data$N[t] - data$catch[t])
 }
 
-# TODO: Plot Rt vs. N[t-2], think about things
+#Rpred vs. time
 p3 <- data %>%
   ggplot(aes(y = Rpred, x = year)) +
   geom_point(shape = 21, colour = "black", fill = "black", size = 3) +
@@ -72,3 +74,26 @@ p3 <- data %>%
   xlab("Year") +
   ggsidekick::theme_sleek()
 p3
+
+# TODO: Plot Rt vs. N[t-2], think about things
+data$stock <- NA
+#set stock as N[t-2]: 
+data$stock[3:n_years] <- data$N[1:(n_years-2)]
+
+#plot stock recruit relationship
+p4 <- data %>% 
+  ggplot(aes(y=Rpred, x=stock)) + 
+  geom_point() + 
+  ylab("Recruitment") + 
+  xlab("Stock Size") + 
+  ggsidekick::theme_sleek()
+p4
+
+my_plot <- cowplot::plot_grid(p1, p2, p3, p4,
+                              nrow = 2
+)
+
+ggsave(
+  filename = "rec-reconstruction/results.pdf",
+  width = 8, height = 6.5, units = "in"
+)
