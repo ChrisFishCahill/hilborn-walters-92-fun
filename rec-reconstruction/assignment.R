@@ -37,8 +37,6 @@ data %>%
 ggsave("rec-reconstruction/N_vs_catch.pdf", 
        width=5, height=3)
 
-#TODO: Figure out recursive R[t] calculation
-
 #General model: 
 #N[t+1] = S(N[t]-C[t]) + R[t]
 #Solve for R[t]: 
@@ -62,4 +60,5 @@ for(t in (n_years-1):1){
   data$Rpred[t] <- data$N[t+1] - S*(data$N[t] - data$catch[t])
 }
 
+#TODO: Plot Rt vs. N[t-2], think about things
 
