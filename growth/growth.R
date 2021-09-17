@@ -72,11 +72,31 @@ Z_a = Z_a / sum(Z_a)
 #does it sum to 1? 
 sum(Z_a)
 
-#cumulative Z(a)
+#cumulative Z(a), don't actually need this to generate fake lengths (see below)
 Z_a_cdf[1] <- Z_a[1] 
 for(i in 2:length(Z_a)){
   Z_a_cdf[i] = Z_a_cdf[i-1] + Z_a[i]
 }
 
+#create 5000 fish of random lengths
+set.seed(6)
+devs <- rmultinom(n=1, size=5000, prob=Z_a)
+
+pdf("growth/growth_fig.pdf",
+width = 8, height = 6
+)
+par(mfrow=c(2,2))
+
 matplot(lens, p_l_a, type="l", las=1, ylab = "p(l|a)", 
-        xlab="length (cm)", main = "Probability of being length l given critters aged 1-10")
+        xlab="length (cm)")
+
+plot(s_l~lens, type="l", las=1, ylab="relative selectivity", 
+     xlab="length (cm)")
+
+plot(lens, Z_a, ylab="Pr(obs. fish of length l)", 
+     xlab="length (cm)", type="l")
+
+barplot(devs~lens, type="",  xlab="length (cm)", 
+        ylab="Number critters at length")
+
+dev.off()
