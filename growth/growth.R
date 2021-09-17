@@ -4,8 +4,8 @@
 # 2) probability of being selected given critter is age a (proxy for size) (s_l)
 # 3) probability of being length x given you are age a (p_l_a)
 #
-# Thus, when get a sample of length-age data, the total probability of observing 
-# said critter (Z_a) is simply the sum product of those three components, i.e., 
+# Thus, when you get a sample of length-age data, the total probability of observing 
+# said critters at age (Z_a) is simply the sum product of those three components, i.e., 
 # sum product p_a*p_l_a*s_l across ages
 #
 # See also Nathan Taylor's paper in CJFAS
