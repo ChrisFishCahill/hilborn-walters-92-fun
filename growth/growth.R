@@ -1,4 +1,5 @@
-#length at age data can be decomposed into three components
+#----------------------------------------------------
+# length-at-age data can be decomposed into three components
 # 1) probability of surviving to age a (p_a)
 # 2) probability of being selected given critter is age a (proxy for size) (s_l)
 # 3) probability of being length x given you are age a (p_l_a)
@@ -7,6 +8,9 @@
 # three components is the sum product p_a*p_l_a*s_l 
 #
 # See also Nathan Taylor's paper in CJFAS
+#---------------------------------------------------
+
+#Declare some leading parameters:
 S <- 0.8
 Linf <- 100
 k <- 0.35
@@ -25,7 +29,7 @@ lens <- 5:135
 s_l <- rep(NA, length(lens))
 
 #Set up leading vectors
-#length at age
+#mean length at age as per von B
 l_a <- Linf*(1-exp(-k*(ages-to)))
 sig_a <- l_a*cv
 
@@ -36,10 +40,10 @@ for(a in 2:n_ages){
   lx[a] = lx[a-1]*S
 }
 
-#p(a)
+#probability of surviving to age a (i.e., p(a))
 p_a <- lx / sum(lx)
 
-#selectivity at age
+#probability of being selected by survey at age or length a/l
 sel_a <- 1/(1+exp(-(l_a-mu_sel)/sig_sel))
 
 #Calculate p(length|age) using normal distribution with length = La
@@ -64,8 +68,11 @@ for(i in 1:length(Z_a)){
 #regularize Z(a)
 Z_a = Z_a / sum(Z_a)
 
+#does it sum to 1? 
+sum(Z_a)
+
 #cumulative Z(a)
-Z_a_cdf[1] <- Z_a[1]
+Z_a_cdf[1] <- Z_a[1] 
 for(i in 2:length(Z_a)){
   Z_a_cdf[i] = Z_a_cdf[i-1] + Z_a[i]
 }
