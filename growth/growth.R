@@ -78,7 +78,7 @@ for(i in 2:length(Z_a)){
   Z_a_cdf[i] = Z_a_cdf[i-1] + Z_a[i]
 }
 
-#create 5000 fish of random lengths
+#create 5000 fish of random lengths | lx, sel, length-at-age assumptions above 
 set.seed(6)
 devs <- rmultinom(n=1, size=5000, prob=Z_a)
 
