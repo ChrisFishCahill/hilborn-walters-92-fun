@@ -48,7 +48,8 @@ p_a <- lx / sum(lx)
 sel_a <- 1/(1+exp(-(l_a-mu_sel)/sig_sel))
 
 #Calculate p(length|age) using normal distribution with length = La
-p_l_a <- matrix(NA, nrow=length(lens), ncol=n_ages)
+#psi_l_a is total probablity of critter being a given laa, lx, sel 
+p_l_a <- psi_l_a <- matrix(NA, nrow=length(lens), ncol=n_ages)
 
 for(l in 1:length(lens)){
   #calculate the selectivity at length l, i.e., s(x)
@@ -56,9 +57,18 @@ for(l in 1:length(lens)){
   for(a in unique(ages)){
     #calculate p(length | age) using normal pdf
     p_l_a[l,a] = (1 / (sig_a[a]*sqrt(2*pi)))*exp(-0.5*((lens[l]-l_a[a])/sig_a[a])^2)
+    #calculate psi_l_a 
+    psi_l_a[l,a] = p_l_a[l,a]*s_l[l]*p_a[a]
   }
 }
 
+#normalize psi_l_a, maybe this is brett's length-age key?
+#note brett calls this Z(x,a)
+psi_l_a = psi_l_a/sum(psi_l_a) 
+#should try and figure out a v. sexy plot for this...
+
+axis(2, at = seq(from = 1, to = 10, by=1))
+#Do some more calculations for Z_a, Z_a_cdf
 Z_a <- Z_a_cdf <- rep(NA, nrow(p_l_a))
 
 for(i in 1:length(Z_a)){
@@ -66,7 +76,7 @@ for(i in 1:length(Z_a)){
   Z_a[i] = sum(p_l_a[i,]*p_a*s_l[i])
 }
 
-#regularize Z(a)
+#normalize Z(a)
 Z_a = Z_a / sum(Z_a)
 
 #does it sum to 1? 
