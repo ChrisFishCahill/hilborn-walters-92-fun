@@ -18,7 +18,7 @@ k <- 0.35
 to <- -0.1
 
 # selectivity parameters
-l50 <- 50
+mu_sel <- 50
 sig_sel <- 5
 
 # sd length at age:
@@ -67,7 +67,6 @@ for (l in 1:length(lens)) {
 psi_l_a <- psi_l_a / sum(psi_l_a)
 # should try and figure out a v. sexy plot for this...
 
-axis(2, at = seq(from = 1, to = 10, by = 1))
 # Do some more calculations for Z_a, Z_a_cdf
 Z_a <- Z_a_cdf <- rep(NA, nrow(p_l_a))
 
