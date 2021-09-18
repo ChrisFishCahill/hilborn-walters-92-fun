@@ -48,7 +48,7 @@ p_a <- lx / sum(lx)
 sel_a <- 1/(1+exp(-(l_a-mu_sel)/sig_sel))
 
 #Calculate p(length|age) using normal distribution with length = La
-#psi_l_a is total probablity of critter being a given laa, lx, sel 
+#psi_l_a is total probablity of critter being age a given total probability from laa, lx, sel 
 p_l_a <- psi_l_a <- matrix(NA, nrow=length(lens), ncol=n_ages)
 
 for(l in 1:length(lens)){
